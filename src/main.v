@@ -1,64 +1,54 @@
 module main
 
-//import os
 import time
 import math
-
-// fn main() {
-// 	max := os.input("Enter the maximal number : ").int()
-// 	start_time := time.now()
-
-// 	mut numbers := []int{cap: max, len: max - 1, init: index + 2}
-// 	mut primary_numbers := []int{}
-
-// 	// Well I don't clearly understand that myself so good luck!
-// 	for numbers.len > 0 {
-// 		current_number := numbers.first()
-// 		primary_numbers.insert(primary_numbers.len, current_number)
-
-// 		for i := 1; i * current_number <= max; i++ {
-			
-// 			index_to_remove := numbers.index(current_number * i)
-
-// 			if index_to_remove >= 0 {
-// 				numbers.delete(index_to_remove)
-// 			}
-// 		}
-// 	}
-
-// 	println("Finished!")
-// 	println("Found numbers : ${primary_numbers}.")
-// 	println("Time elapsed ${time.since(start_time)}")
-// }
 
 const max = 9500000
 
 fn main() {
-	//max := os.input("Enter the maximal number : ").u32()
 	start_time := time.now()
 
-	mut primary_numbers := [2]
+	// Array containing the found prime numbers
+	mut prime_numbers := []int{cap: max}
 
+	// Little trick to avoid having to compute every multiple of two
+	if max >= 2 {
+		prime_numbers << 2
+	}
+
+	// Loop over every number between 3 and max, except for the multiples of two (that aren't prime)
 	for current_number := 3; current_number <= max; current_number += 2 {
-		ceil := u32(math.cbrt(current_number)) + 1
+		// Get the integer of the square root of the current number
+		square_root_integer := math.sqrti(current_number)
 
-		mut is_primary := true
+		mut is_prime := true
 
-		for i := 1; i <= ceil; i++ {
-			result := current_number / i
-
-			if result != u32(result) {
-				is_primary = false
+		// Loop over every prime numbers smaller than the square root
+		for i in prime_numbers {
+			if i > square_root_integer {
+				break
+			}
+			
+			// If the current number is divisible by i
+			if current_number % i == 0 {
+				// Then it isn't prime
+				is_prime = false
 				break
 			}
 		}
 
-		if is_primary {
-			primary_numbers << current_number
+		// If it wasn't divisible by any number
+		if is_prime {
+			// Then it is prime
+			prime_numbers << current_number
 		}
 	}
-
-	println("Finished!")
-	println("Found numbers : ${primary_numbers}")
-	println("Elapsed time : ${time.since(start_time)}")
+	
+	// Save the elapsed time in a variable since printing takes much time
+	elapsed_time := time.since(start_time)
+	
+	// Show results
+	//println("Finished!")
+	//println("Found numbers : ${prime_numbers}")
+	//println("Elapsed time : ${elapsed_time}")
 }
