@@ -1,15 +1,16 @@
 module main
 
+import os
 import time
 import math
 
-const max = 9500000
-
 fn main() {
+	max := os.input("Enter the max number : ").u32()
+
 	start_time := time.now()
 
 	// Array containing the found prime numbers
-	mut prime_numbers := []int{cap: max}
+	mut prime_numbers := []u32{cap: int(max)}
 
 	// Little trick to avoid having to compute every multiple of two
 	if max >= 2 {
@@ -17,7 +18,7 @@ fn main() {
 	}
 
 	// Loop over every number between 3 and max, except for the multiples of two (that aren't prime)
-	for current_number := 3; current_number <= max; current_number += 2 {
+	for current_number := u32(3); current_number <= max; current_number += 2 {
 		// Get the integer of the square root of the current number
 		square_root_integer := math.sqrti(current_number)
 
@@ -48,7 +49,7 @@ fn main() {
 	elapsed_time := time.since(start_time)
 	
 	// Show results
-	//println("Finished!")
-	//println("Found numbers : ${prime_numbers}")
-	//println("Elapsed time : ${elapsed_time}")
+	println("Finished!")
+	println("Found numbers : ${prime_numbers}")
+	println("Elapsed time : ${elapsed_time}")
 }
