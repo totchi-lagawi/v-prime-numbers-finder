@@ -12,6 +12,7 @@ bin/
 
 # Ignore common editor/system specific metadata
 .DS_Store
+.editorconfig
 .idea/
 .vscode/
 *.iml
