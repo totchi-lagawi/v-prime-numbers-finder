@@ -2,7 +2,6 @@ module main
 
 import os
 import time
-import math
 
 fn main() {
 	max := os.input("Enter the max number : ").u32()
@@ -19,14 +18,11 @@ fn main() {
 
 	// Loop over every number between 3 and max, except for the multiples of two (that aren't prime)
 	for current_number := u32(3); current_number <= max; current_number += 2 {
-		// Get the integer of the square root of the current number
-		square_root_integer := math.sqrti(current_number)
-
 		mut is_prime := true
 
 		// Loop over every prime numbers smaller than the square root
 		for i in prime_numbers {
-			if i > square_root_integer {
+			if i*i > current_number {
 				break
 			}
 			
